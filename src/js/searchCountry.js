@@ -13,18 +13,15 @@ function onSearch() {
   if (!searchQuery) {
     return;
   }
+  refs.inputRef.value = "";
 
   // Отправляем запрос на Rest Countries API и обрабатываем результат запроса.
   fetchCountries(searchQuery)
     .then((data) => {
       // Очищаем содержимое элемента, куда встраивается результат запроса.
       refs.containerRef.innerHTML = "";
-      if (data.length == null) {
-        onFetchError();
-        refs.input.value = "";
-      }
       // Если пришло в ответ больше 10 элементов, показыает уведомление с просьбой о более конкретном запросе.
-      else if (data.length > 10) {
+      if (data.length > 10) {
         ShowErrorMsg.errorMsg();
       } // Если пришло от 2 до 10 элементов, рендерим их списком.
       else if (data.length > 1 && data.length <= 10) {
